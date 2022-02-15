@@ -1,0 +1,105 @@
+.feedbackAnalysis {
+    margin-bottom: 10px;
+    .container {
+      max-width: 700px;
+      display: flex;
+      margin: 0 auto;
+      padding: 20px;
+      border-radius: 4px;
+      box-shadow: 0 2px 5px rgb(0 0 0 / 12%);
+      justify-content: center;
+    }
+    .performanceContainer{
+      width: 100%;
+      padding: 10px;
+      background-color: #f1f6fa;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+    }
+    .performanceText{
+      margin: 0px;
+      font-size: 14px;
+    }
+    .performanceReviewText{
+      margin-left: 5px !important;
+      font-size: 18px;
+      font-weight: 600;
+      color: #0faa2e;
+      margin: 0px;
+    }
+    .postiveIcon{
+        color: #0faa2e;
+    }
+    .negativeIcon{
+        color: #FF0303 !important;
+    }
+    .countPositive{
+        margin: 0px;
+        font-size: 14px;
+        margin-right: 5px;
+        color: #0faa2e;
+        font-weight: 600;
+    }
+    .countSubtitle{
+        margin: 0px;
+        font-size: 14px;
+        color: #6C7680;
+    }
+    
+    .countContainer{
+        display: flex;
+        flex-direction: row;
+    }
+    .ratingCounter{
+        margin: 0px;
+        font-size: 42px;
+        text-align: initial;
+        margin-bottom: 5px;
+        font-weight: 500;
+    }
+    .outerContainer{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+    .reviewContainer{
+        padding: 10px;
+        display: flex;
+        flex-direction: row;
+        align-content: baseline;
+    }
+    .emojiContainer{
+        display: flex;
+        flex-direction: row;
+        padding: 5px;
+        width: 100%;
+        justify-content: space-between;
+    }
+    .emojiPic{
+        width: 18px;
+        height: 18px;
+        margin-right: 5px;
+    }
+    .emojiTitle{
+        margin: 0px;
+        font-weight: 600;
+        font-size: 14px;
+    }
+  
+    .row {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+   
+    .title{
+      color: #2D373C;
+      font-size: 18px;
+      font-weight: 600;
+      margin: 5px;
+    }
+  }
