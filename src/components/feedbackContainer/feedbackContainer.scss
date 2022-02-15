@@ -33,7 +33,7 @@
 .card{
     height: 95px;
     display: flex;
-    box-shadow: 0px 2px 5px #0000000d !important;
+    box-shadow: 0px 2px 5px #0000001c !important;
     border-radius: 8px !important;
     flex-direction: row;
     width: 100%;
@@ -75,9 +75,31 @@
 }
 .cardContainer{
     display: flex;
+    flex-direction: column;
     width: 70%;
-    justify-content: space-around;
+    margin-right: 10px;
 }
 .minWidth{
     width: 30%;
+}
+.chartContainer{
+    margin-top: 10px;
+    box-shadow: 0px 2px 5px #0000001c !important;
+    border-radius: 8px;
+}
+.chartTitle{
+    display: flex;
+    flex-direction: column;
+    text-align: initial;
+    padding: 10px;
+    margin-left: 10px;
+}
+.chartContainerBox{
+    display: flex;
+    align-content: center;
+    flex-direction: row;
+    justify-content: center;
+}
+.marginBottom{
+    margin-bottom: 0px !important;
 }

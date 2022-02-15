@@ -6,6 +6,7 @@ import totalReviews from '../../../src/assests/totalreviews.svg';
 import newReviews from '../../../src/assests/newReviews.svg';
 import RatingContainer from '../ratingContainer/ratingContainer';
 import RatingDetails from '../ratingDetails/ratingDetails';
+import Chart from '../feedbackchart/chart';
 
 export default function FeedbackContainer() {
     return (
@@ -42,10 +43,21 @@ export default function FeedbackContainer() {
                                 </div>
 
                             </div>
-                            
+
 
                         </CardContent>
                     </Card>
+                    <div className='chartContainer'>
+                        <div className='chartTitle'>
+                            <p className='title'>Performance</p>
+                            <p className='subtitle marginBottom'>January 1 2020 - January 7 2021</p>
+                        </div>
+                        <div className='chartContainerBox'>
+                            <Chart></Chart>
+                        </div>
+
+                    </div>
+
                 </div>
                 <div className='minWidth'>
                     <div>
