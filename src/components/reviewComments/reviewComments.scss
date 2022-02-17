@@ -1,0 +1,117 @@
+.cardContainer{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    margin-right: 10px;
+}
+.minWidth{
+    width: 30%;
+}
+.reviewContainer{
+    margin-top: 10px;
+    box-shadow: 0px 2px 5px #0000001c !important;
+    border-radius: 8px;
+    background-color: white;
+    padding: 10px;
+}
+.ratingColor{
+    color: #F9B623 !important;
+}
+.noRatingColor{
+    color: #EAEEF0;
+}
+.dot {
+    height: 6px;
+    width: 6px;
+    background-color: #6C7680;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.reviewTitle{
+    display: flex;
+    flex-direction: column;
+    text-align: initial;
+    padding: 10px;
+    margin-left: 10px;
+}
+.reviewContainerBox{
+    display: flex;
+    align-content: center;
+    flex-direction: row;
+    justify-content: center;
+}
+.marginBottom{
+    margin-bottom: 0px !important;
+}
+.title{
+    font-size: 18px;
+    font-weight: 600;
+    color: #2D373C;
+    text-align: initial;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+.reviewTextContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px;
+    border: 1px solid #DCE5EB;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px #0000000d;
+    margin: 10px;
+}
+.reviewText{
+    font-weight: 400;
+    text-align: initial;
+    margin: 0px;
+    margin: 0px;
+    margin-top: 5px;
+    font-size: 14px
+}
+.replyContainer{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.userDetails{
+    display: flex;
+    align-content: center;
+    align-items: center;
+}
+.emojiPic{
+    width: 18px;
+    height: 18px;
+    margin-right: 5px;
+}
+.emojiTitle{
+    margin: 0px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.replyButton{
+    border: 0px !important;
+    text-transform: capitalize !important;
+    margin-top: 5px !important;
+}
+.userText{
+    margin: 0px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #6C7680;
+}
+.emojiContianer{
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+}
+.emojiRatingContainer{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}

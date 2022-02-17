@@ -7,6 +7,7 @@ import newReviews from '../../../src/assests/newReviews.svg';
 import RatingContainer from '../ratingContainer/ratingContainer';
 import RatingDetails from '../ratingDetails/ratingDetails';
 import Chart from '../feedbackchart/chart';
+import ReviewComments from '../reviewComments/reviewComments';
 
 export default function FeedbackContainer() {
     return (
@@ -55,8 +56,9 @@ export default function FeedbackContainer() {
                         <div className='chartContainerBox'>
                             <Chart></Chart>
                         </div>
-
+                        
                     </div>
+                    <ReviewComments></ReviewComments>
 
                 </div>
                 <div className='minWidth'>
@@ -65,6 +67,7 @@ export default function FeedbackContainer() {
                         <RatingDetails></RatingDetails>
                     </div>
                 </div>
+                
             </div>
 
         </div>
