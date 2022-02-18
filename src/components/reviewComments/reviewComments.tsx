@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import ReplyAllIcon from '@mui/icons-material/ReplyAll';
 import thumbsUp from '../../assests/thumbsUp.png'
 import thumbsDown from '../../assests/thumbsDown.png'
+import neutral from '../../assests/neutral.png'
 import { feedbackModel } from '../model/feedbackModel';
 import moment from 'moment';
 
@@ -13,7 +14,6 @@ import moment from 'moment';
 const ReviewComments = (_props: any) => {
 
     let feedbackList: feedbackModel[] = _props.feedbackList
-
     return (
 
         <div className='reviewContainer'>
@@ -31,7 +31,7 @@ const ReviewComments = (_props: any) => {
                             let RatingStars = () => {
                                 return (<div>{
                                     Array.from(Array(+elements.score), (e, i) => {
-                                        return (<Star fontSize='small' className='ratingColor'></Star>)
+                                        return (<Star key={i} fontSize='small' className='ratingColor'></Star>)
                                     })
                                 }
                                 </div>)
@@ -39,10 +39,37 @@ const ReviewComments = (_props: any) => {
                             let NoRatingStars = () => {
                                 return (<div>{
                                     Array.from(Array(5 - +elements.score), (e, i) => {
-                                        return (<Star fontSize='small' className='noRatingColor'></Star>)
+                                        return (<Star key={i} fontSize='small' className='noRatingColor'></Star>)
                                     })
                                 }
                                 </div>)
+                            }
+                            let EmojiReaction = () => {
+                                
+                                if (_props.positiveFeedbackList.filter((elm: feedbackModel) => elm === elements).length > 0) {
+                                    return (
+                                        <div className='emojiContianer'>
+                                            <img src={thumbsUp} className='emojiPic' />
+                                            <p className='emojiTitle'>Positive Review</p>
+                                        </div>
+                                    )
+                                }
+                                else if(_props.negativeFeedbackList.filter((elm: feedbackModel) => elm === elements).length > 0){
+                                    return (
+                                        <div className='emojiContianer'>
+                                            <img src={thumbsDown} className='emojiPic' />
+                                            <p className='emojiTitle'>Negative Review</p>
+                                        </div>
+                                    )
+                                }
+                                else {
+                                    return (
+                                        <div className='emojiContianer'>
+                                            <img src={neutral} className='emojiPic' />
+                                            <p className='emojiTitle'>Neutral Review</p>
+                                        </div>
+                                    )
+                                }
                             }
                             return (
                                 <div className='reviewTextContainer' key={index} >
@@ -51,10 +78,7 @@ const ReviewComments = (_props: any) => {
                                             <RatingStars />
                                             <NoRatingStars />
                                         </div>
-                                        <div className='emojiContianer'>
-                                            <img src={thumbsUp} className='emojiPic' />
-                                            <p className='emojiTitle'>Positive Review</p>
-                                        </div>
+                                        <EmojiReaction/>
                                     </div>
 
                                     <p className='reviewText'>{elements.comments}</p>

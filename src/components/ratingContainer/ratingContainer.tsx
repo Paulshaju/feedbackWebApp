@@ -8,17 +8,36 @@ import { Divider } from '@mui/material';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 
-export default function RatingContainer() {
+export default function RatingContainer(_props: any) {
+
+
+    let PerformanceReview = () => {
+        if (_props.positiveFeedbackList.length >= _props.negativeFeedbackList.length) {
+            return (
+                <div className='performanceContainer'>
+                    <p className='performanceText'>Your performance review is </p>
+                    <p className='performanceReviewText postiveIcon'>Good!</p>
+                </div>
+            )
+        }
+        else {
+            return (
+                <div className='performanceContainer'>
+                    <p className='performanceText'>Your performance review is </p>
+                    <p className='performanceReviewText negativeIcon'>Bad!</p>
+                </div>
+            )
+        }
+
+    }
+
     return (
         <div className='feedbackAnalysis'>
             <div className='container'>
                 <div className='outerContainer'>
                     <div className='row'>
                         <p className='title'>Rating Details</p>
-                        <div className='performanceContainer'>
-                            <p className='performanceText'>Your performance review is </p>
-                            <p className='performanceReviewText'>Good!</p>
-                        </div>
+                        <PerformanceReview />
                         <div className='emojiContainer'>
                             <div>
                                 <div className='reviewContainer'>
@@ -26,7 +45,7 @@ export default function RatingContainer() {
                                     <p className='emojiTitle'>Positive Review</p>
                                 </div>
                                 <div>
-                                    <p className='ratingCounter'>371</p>
+                                    <p className='ratingCounter'>{_props.positiveFeedbackList.length}</p>
                                     <div className='countContainer'>
                                         <ArrowUpwardIcon fontSize='small' className='postiveIcon'></ArrowUpwardIcon>
                                         <p className='countPositive'>12%</p>
@@ -42,7 +61,7 @@ export default function RatingContainer() {
                                     <p className='emojiTitle'>Negative Review</p>
                                 </div>
                                 <div>
-                                    <p className='ratingCounter'>82</p>
+                                    <p className='ratingCounter'>{_props.negativeFeedbackList.length}</p>
                                     <div className='countContainer'>
                                         <ArrowDownwardIcon fontSize='small' className='negativeIcon'></ArrowDownwardIcon>
                                         <p className='countPositive negativeIcon'>8%</p>

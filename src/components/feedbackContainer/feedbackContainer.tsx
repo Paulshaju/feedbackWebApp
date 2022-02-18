@@ -15,24 +15,36 @@ export default function FeedbackContainer(_props: any) {
 
     let feedbackList: feedbackModel[] = _props.feedbackList
     let newFeedbackList: feedbackModel[] = []
+    let positiveFeedbackList: feedbackModel[] = []
+    let negativeFeedbackList: feedbackModel[] = []
+    let neutralFeedbackList: feedbackModel[] = []
 
     feedbackList.forEach((element: feedbackModel) => {
-        
+
         if (element.created) {
             const currentDate = new Date()
             const created = new Date(element.created)
             let timeInMilisec: number = currentDate.getTime() - created.getTime();
             let daysBetweenDates: number = Math.ceil(timeInMilisec / (1000 * 60 * 60 * 24));
-            if(daysBetweenDates <= 1){
+            if (daysBetweenDates <= 1) {
                 newFeedbackList.push(element)
+            }
+        }
+        let maxvalue = Math.max(element.cogPositive, element.cogNegative, element.cogNeutral)
+        if (maxvalue === 0) {
+            neutralFeedbackList.push(element)
+        }
+        else {
+            if (maxvalue === element.cogPositive) {
+                positiveFeedbackList.push(element)
+            } else if (maxvalue === element.cogNegative) {
+                negativeFeedbackList.push(element)
+            } else if (maxvalue === element.cogNeutral) {
+                neutralFeedbackList.push(element)
             }
         }
 
     })
-
-    // console.log(feedbackList)
-
-
     return (
         <div className='mainContainer fadeindownAnimation'>
             <p className='title'>Dashboard</p>
@@ -81,12 +93,27 @@ export default function FeedbackContainer(_props: any) {
                         </div>
 
                     </div>
-                    <ReviewComments feedbackList={feedbackList}></ReviewComments>
+                    <ReviewComments
+                        feedbackList={feedbackList}
+                        positiveFeedbackList={positiveFeedbackList}
+                        negativeFeedbackList={negativeFeedbackList}
+                        neutralFeedbackList={neutralFeedbackList}
+                    ></ReviewComments>
                 </div>
                 <div className='minWidth'>
                     <div>
-                        <RatingContainer></RatingContainer>
-                        <RatingDetails feedbackList={feedbackList}></RatingDetails>
+                        <RatingContainer
+                            feedbackList={feedbackList}
+                            positiveFeedbackList={positiveFeedbackList}
+                            negativeFeedbackList={negativeFeedbackList}
+                            neutralFeedbackList={neutralFeedbackList}
+                            ></RatingContainer>
+                        <RatingDetails
+                            feedbackList={feedbackList}
+                            positiveFeedbackList={positiveFeedbackList}
+                            negativeFeedbackList={negativeFeedbackList}
+                            neutralFeedbackList={neutralFeedbackList}
+                        ></RatingDetails>
                     </div>
                 </div>
 
