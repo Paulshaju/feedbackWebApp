@@ -23,6 +23,11 @@
   .noRatingColor{
     color: #EAEEF0;
   }
+  .flex{  
+    display: flex;
+    justify-items: baseline;
+
+  }
   .outerContainer{
     display: flex;
     flex-direction: column;

@@ -7,6 +7,10 @@
 .minWidth{
     width: 30%;
 }
+.ratingRow{
+    display: flex;
+    flex-direction: row;
+}
 .reviewContainer{
     margin-top: 10px;
     box-shadow: 0px 2px 5px #0000001c !important;
@@ -62,14 +66,17 @@
     border-radius: 8px;
     box-shadow: 0px 2px 5px #0000000d;
     margin: 10px;
+    min-height: 140px;
 }
 .reviewText{
     font-weight: 400;
     text-align: initial;
     margin: 0px;
     margin: 0px;
-    margin-top: 5px;
-    font-size: 14px
+    margin-top: 10px;
+    margin-left: 5px;
+    font-size: 14px;
+    min-height: 70px;
 }
 .replyContainer{
     display: flex;
@@ -102,6 +109,7 @@
     font-size: 14px;
     font-weight: 400;
     color: #6C7680;
+    margin-left: 5px;
 }
 .emojiContianer{
     display: flex;

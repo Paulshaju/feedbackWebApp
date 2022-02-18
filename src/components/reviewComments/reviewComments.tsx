@@ -5,70 +5,80 @@ import Button from '@mui/material/Button';
 import ReplyAllIcon from '@mui/icons-material/ReplyAll';
 import thumbsUp from '../../assests/thumbsUp.png'
 import thumbsDown from '../../assests/thumbsDown.png'
+import { feedbackModel } from '../model/feedbackModel';
+import moment from 'moment';
 
 
 
-const ReviewComments = () => {
+const ReviewComments = (_props: any) => {
+
+    let feedbackList: feedbackModel[] = _props.feedbackList
+
     return (
+
         <div className='reviewContainer'>
             <p className='title'>Reviews</p>
             <div>
-                <div className='reviewTextContainer'>
-                    <div className='emojiRatingContainer'>
-                        <div>
-                            <Star fontSize='small' className='ratingColor'></Star>
-                            <Star fontSize='small' className='ratingColor'></Star>
-                            <Star fontSize='small' className='ratingColor'></Star>
-                            <Star fontSize='small' className='ratingColor'></Star>
-                            <Star fontSize='small' className='noRatingColor'></Star>
-                        </div>
-                        <div className='emojiContianer'>
-                            <img src={thumbsUp} className='emojiPic' />
-                            <p className='emojiTitle'>Positive Review</p>
-                        </div>
-                    </div>
+                {
+                    feedbackList.filter(elements => elements.comments && elements.comments !== ' ')
+                        .map((elements, index) => {
+                            let momentStringFormat = ''
+                            if (elements.created) {
+                                let dateObj = new Date(elements.created)
+                                let momentDateObj = moment(dateObj)
+                                momentStringFormat = momentDateObj.format('YYYY-MM-DD')
+                            }
+                            let RatingStars = () => {
+                                return (<div>{
+                                    Array.from(Array(+elements.score), (e, i) => {
+                                        return (<Star fontSize='small' className='ratingColor'></Star>)
+                                    })
+                                }
+                                </div>)
+                            }
+                            let NoRatingStars = () => {
+                                return (<div>{
+                                    Array.from(Array(5 - +elements.score), (e, i) => {
+                                        return (<Star fontSize='small' className='noRatingColor'></Star>)
+                                    })
+                                }
+                                </div>)
+                            }
+                            return (
+                                <div className='reviewTextContainer' key={index} >
+                                    <div className='emojiRatingContainer'>
+                                        <div className='ratingRow'>
+                                            <RatingStars />
+                                            <NoRatingStars />
+                                        </div>
+                                        <div className='emojiContianer'>
+                                            <img src={thumbsUp} className='emojiPic' />
+                                            <p className='emojiTitle'>Positive Review</p>
+                                        </div>
+                                    </div>
 
-                    <p className='reviewText'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
-                    <div className='replyContainer'>
-                        <div className='userDetails'>
-                            <p className='userText'>by paul shaju</p>
-                            <span className='dot'></span>
-                            <p className='userText'>2 hours ago</p>
-                        </div>
+                                    <p className='reviewText'>{elements.comments}</p>
+                                    <div className='replyContainer'>
+                                        <div className='userDetails'>
+                                            <p className='userText'>by {elements.firstName} {elements.surName}</p>
+                                            {momentStringFormat.length ?
+                                                <><span className='dot'></span><p className='userText'>{moment(momentStringFormat, "YYYY-MM-DD").fromNow()}</p></> :
+                                                <span className='dot'></span>
 
-                        <Button variant="outlined" startIcon={<ReplyAllIcon />} className='replyButton'>
-                            Reply
-                        </Button>
-                    </div>
-                </div>
-                <div className='reviewTextContainer'>
-                    <div className='emojiRatingContainer'>
-                        <div>
-                            <Star fontSize='small' className='ratingColor'></Star>
-                            <Star fontSize='small' className='ratingColor'></Star>
-                            <Star fontSize='small' className='ratingColor'></Star>
-                            <Star fontSize='small' className='ratingColor'></Star>
-                            <Star fontSize='small' className='noRatingColor'></Star>
-                        </div>
-                        <div className='emojiContianer'>
-                            <img src={thumbsDown} className='emojiPic' />
-                            <p className='emojiTitle'>Negative Review</p>
-                        </div>
-                    </div>
+                                            }
 
-                    <p className='reviewText'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
-                    <div className='replyContainer'>
-                        <div className='userDetails'>
-                            <p className='userText'>by paul shaju</p>
-                            <span className='dot'></span>
-                            <p className='userText'>2 hours ago</p>
-                        </div>
 
-                        <Button variant="outlined" startIcon={<ReplyAllIcon />} className='replyButton'>
-                            Reply
-                        </Button>
-                    </div>
-                </div>
+
+                                        </div>
+
+                                        <Button variant="outlined" startIcon={<ReplyAllIcon />} className='replyButton'>
+                                            Reply
+                                        </Button>
+                                    </div>
+                                </div >
+                            )
+                        })
+                }
             </div>
         </div>
     )

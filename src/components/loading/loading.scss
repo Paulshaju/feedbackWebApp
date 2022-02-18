@@ -1,0 +1,61 @@
+.loadingContainer{  
+    height: 100%;
+    width: 100%;
+}
+.loadingBar{
+    display: inline-block;
+    width: 5px;
+    height: 20px;
+    margin: 2px;
+    background-color: #32324e;
+    box-shadow: rgb(0 0 0 / 15%) 0px 5px 15px 0px;
+
+}
+.LodinglogoPic{
+    height: 40px;
+    width: 150px;
+    margin-bottom: 20px;
+}
+
+.loader{
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+    position: absolute;
+    top: 50%;
+    bottom: 50%;
+    margin: 0 auto;
+    right: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+  }
+  
+.loadingBar:nth-child(1){
+    animation: grow 1s ease-in-out 0.1s infinite;
+}
+.loadingBar:nth-child(2){
+    animation: grow 1s ease-in-out 0.15s infinite;
+  }
+  
+.loadingBar:nth-child(3){
+    animation: grow 1s ease-in-out 0.30s infinite;
+  }
+  
+.loadingBar:nth-child(4){
+    animation: grow 1s ease-in-out 0.45s infinite;
+}
+
+@keyframes grow{
+    0%, 100%{
+      transform: scaleY(1);
+    }
+  
+    50%{
+      transform: scaleY(1.8);
+    }
+  }
+
