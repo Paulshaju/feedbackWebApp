@@ -89,12 +89,14 @@ export default function FeedbackContainer(_props: any) {
                             <p className='subtitle marginBottom'>January 1 2020 - January 7 2021</p>
                         </div>
                         <div className='chartContainerBox'>
-                            <Chart></Chart>
+                            <Chart
+                                feedbackList={feedbackList}
+                            ></Chart>
                         </div>
 
                     </div>
                     <ReviewComments
-                        feedbackList={feedbackList}
+
                         positiveFeedbackList={positiveFeedbackList}
                         negativeFeedbackList={negativeFeedbackList}
                         neutralFeedbackList={neutralFeedbackList}
@@ -107,7 +109,7 @@ export default function FeedbackContainer(_props: any) {
                             positiveFeedbackList={positiveFeedbackList}
                             negativeFeedbackList={negativeFeedbackList}
                             neutralFeedbackList={neutralFeedbackList}
-                            ></RatingContainer>
+                        ></RatingContainer>
                         <RatingDetails
                             feedbackList={feedbackList}
                             positiveFeedbackList={positiveFeedbackList}

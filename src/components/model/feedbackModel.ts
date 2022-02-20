@@ -9,3 +9,9 @@ export interface feedbackModel{
     cogNegative:number,
     created:Date
 }
+export interface chartDataModel{
+    name:string,
+    positive:number,
+    negative:number,
+    neutral:number
+}
