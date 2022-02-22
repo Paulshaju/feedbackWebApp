@@ -14,7 +14,7 @@ export const Pagination = (_props: any) => {
                 pageNumbers.map(number => {
                     return (
                         <div>
-                            <Button >{number}</Button>
+                            <Button>{number}</Button>
                         </div>
                     )
 
