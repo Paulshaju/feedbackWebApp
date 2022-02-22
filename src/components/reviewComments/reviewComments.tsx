@@ -1,6 +1,6 @@
 import * as React from 'react';
 import './reviewComments.scss';
-import { Star } from '@mui/icons-material';
+import { PostAddSharp, Star } from '@mui/icons-material';
 import Button from '@mui/material/Button';
 import ReplyAllIcon from '@mui/icons-material/ReplyAll';
 import thumbsUp from '../../assests/thumbsUp.png'
@@ -8,19 +8,27 @@ import thumbsDown from '../../assests/thumbsDown.png'
 import neutral from '../../assests/neutral.png'
 import { feedbackModel } from '../model/feedbackModel';
 import moment from 'moment';
+import { useState } from 'react';
+import { Pagination } from '../pagination/pagination';
 
 
 
 const ReviewComments = (_props: any) => {
+    const [currentPage,setCurrentPage] = useState(1)
+    const [postPerPage,setPostPerpage] = useState(5)
 
-    let feedbackList: feedbackModel[] = _props.feedbackList
+    const indexOfLastPost = currentPage * postPerPage
+    const indexOfFirstPost = indexOfLastPost - postPerPage
+    const currentPosts:feedbackModel[] = _props.feedbackList.slice(indexOfFirstPost,indexOfLastPost)
+    console.log(postPerPage)
+    console.log(currentPosts)
     return (
 
         <div className='reviewContainer'>
             <p className='title'>Reviews</p>
             <div>
                 {
-                    feedbackList.filter(elements => elements.comments && elements.comments !== ' ')
+                    currentPosts.filter(elements => elements.comments && elements.comments !== ' ')
                         .map((elements, index) => {
                             let momentStringFormat = ''
                             if (elements.created) {
@@ -45,7 +53,7 @@ const ReviewComments = (_props: any) => {
                                 </div>)
                             }
                             let EmojiReaction = () => {
-                                
+
                                 if (_props.positiveFeedbackList.filter((elm: feedbackModel) => elm === elements).length > 0) {
                                     return (
                                         <div className='emojiContianer'>
@@ -54,7 +62,7 @@ const ReviewComments = (_props: any) => {
                                         </div>
                                     )
                                 }
-                                else if(_props.negativeFeedbackList.filter((elm: feedbackModel) => elm === elements).length > 0){
+                                else if (_props.negativeFeedbackList.filter((elm: feedbackModel) => elm === elements).length > 0) {
                                     return (
                                         <div className='emojiContianer'>
                                             <img src={thumbsDown} className='emojiPic' />
@@ -78,7 +86,7 @@ const ReviewComments = (_props: any) => {
                                             <RatingStars />
                                             <NoRatingStars />
                                         </div>
-                                        <EmojiReaction/>
+                                        <EmojiReaction />
                                     </div>
 
                                     <p className='reviewText'>{elements.comments}</p>
@@ -91,8 +99,6 @@ const ReviewComments = (_props: any) => {
 
                                             }
 
-
-
                                         </div>
 
                                         <Button variant="outlined" startIcon={<ReplyAllIcon />} className='replyButton'>
@@ -104,6 +110,9 @@ const ReviewComments = (_props: any) => {
                         })
                 }
             </div>
+            {/* <div>
+                <Pagination postPerPage={postPerPage} totalPosts={_props.feedbackList.length}></Pagination>
+            </div> */}
         </div>
     )
 }

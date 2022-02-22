@@ -91,12 +91,15 @@ export default function FeedbackContainer(_props: any) {
                         <div className='chartContainerBox'>
                             <Chart
                                 feedbackList={feedbackList}
+                                positiveFeedbackList={positiveFeedbackList}
+                                negativeFeedbackList={negativeFeedbackList}
+                                neutralFeedbackList={neutralFeedbackList}
                             ></Chart>
                         </div>
 
                     </div>
                     <ReviewComments
-
+                        feedbackList={feedbackList}
                         positiveFeedbackList={positiveFeedbackList}
                         negativeFeedbackList={negativeFeedbackList}
                         neutralFeedbackList={neutralFeedbackList}
