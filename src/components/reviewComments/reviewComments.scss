@@ -58,7 +58,7 @@
 }
 .reviewTextContainer{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-start;
     padding: 15px;
     border: 1px solid #DCE5EB;
@@ -67,18 +67,67 @@
     margin: 10px;
 }
 .reviewText{
-    font-weight: 400;
     text-align: initial;
     margin: 0px;
     margin: 0px;
     margin-top: 10px;
     margin-left: 5px;
     font-size: 14px;
+    color: #617684;
+}
+.replyButtonContainer{
+    display: flex;
+    align-items: end;
+}
+.textareaContainer{
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+}
+.responseButton{
+    display: flex;
+    justify-content: end;
+}
+.textareaOuterContainer{
+    display: flex;
+    flex-direction: row;
+    width:100%;
+}
+.textarea{
+    border: 1px solid #DCE5EB;
+    border-radius: 2px;
+    opacity: 1;
+    width: 100%;
 }
 .replyContainer{
     display: flex;
     justify-content: space-between;
     width: 100%;
+    margin-bottom: 15px;
+}
+.responseContainer{
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+}
+.profilePic{
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.commentContainer{
+    width: 100%;
+}
+.timeText{
+    display: flex;
+    align-content: flex-start;
+    font-size: 12px;
+    font-weight: 400;
+    color: #9BAEBD;
+    margin: 0px;
+    margin-left: 5px;
 }
 .userDetails{
     display: flex;
@@ -104,14 +153,14 @@
 .userText{
     margin: 0px;
     font-size: 14px;
-    font-weight: 400;
-    color: #6C7680;
+    font-weight: 600;
     margin-left: 5px;
 }
 .emojiContianer{
     display: flex;
     flex-direction: row;
     align-content: center;
+    margin-left: 10px;
 }
 .emojiRatingContainer{
     display: flex;

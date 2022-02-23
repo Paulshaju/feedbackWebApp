@@ -5,15 +5,18 @@ import Button from '@mui/material/Button';
 import ReplyAllIcon from '@mui/icons-material/ReplyAll';
 import thumbsUp from '../../assests/thumbsUp.png'
 import thumbsDown from '../../assests/thumbsDown.png'
+import profile2 from '../../assests/profile2.jpg'
+import profile1 from '../../assests/profile1.jpg'
 import neutral from '../../assests/neutral.png'
 import { feedbackModel } from '../model/feedbackModel';
 import moment from 'moment';
 import { useState } from 'react';
 import { Pagination } from '../pagination/pagination';
 import SortIcon from '@mui/icons-material/Sort';
-import { Chip, IconButton, ListItemText, Menu, MenuItem, MenuList } from '@mui/material';
+import { Chip, Divider, IconButton, ListItemText, Menu, MenuItem, MenuList } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import { arrayBuffer } from 'node:stream/consumers';
 
 
 
@@ -22,6 +25,7 @@ const ReviewComments = (_props: any) => {
     const [sortText, setSortText] = useState('Sort By')
     const [postPerPage] = useState(5)
     let editorOpened = false
+    let responseValue = ''
     let [filters, setFilters] = useState<string[]>([])
 
     const indexOfLastPost = currentPage * postPerPage
@@ -132,6 +136,13 @@ const ReviewComments = (_props: any) => {
         }
         setFilters(filters.filter(elem => elem !== name))
     };
+
+    //textArea
+
+    const handleChange = (event: { target: { value: any; }; }) => {
+        responseValue = event.target.value
+        console.log(event.target.value)
+    }
     return (
 
         <div className='reviewContainer'>
@@ -251,7 +262,7 @@ const ReviewComments = (_props: any) => {
                                     return (
                                         <div className='emojiContianer'>
                                             <img src={thumbsUp} className='emojiPic' />
-                                            <p className='emojiTitle '>Positive Review</p>
+
                                         </div>
                                     )
                                 }
@@ -259,7 +270,7 @@ const ReviewComments = (_props: any) => {
                                     return (
                                         <div className='emojiContianer'>
                                             <img src={thumbsDown} className='emojiPic' />
-                                            <p className='emojiTitle '>Negative Review</p>
+
                                         </div>
                                     )
                                 }
@@ -267,46 +278,106 @@ const ReviewComments = (_props: any) => {
                                     return (
                                         <div className='emojiContianer'>
                                             <img src={neutral} className='emojiPic' />
-                                            <p className='emojiTitle'>Neutral Review</p>
+
                                         </div>
                                     )
                                 }
                             }
                             return (
                                 <div className='reviewTextContainer' key={index} >
-                                    <div className='emojiRatingContainer'>
-                                        <div className='ratingRow'>
-                                            <RatingStars />
-                                            <NoRatingStars />
+                                    <img src={profile2} className='profilePic' />
+                                    <div className='commentContainer'>
+                                        <div className='emojiRatingContainer'>
+
+                                            <div>
+
+                                                <div className='userDetails'>
+                                                    <p className='userText'>{elements.firstName} {elements.surName}</p>
+                                                    <EmojiReaction />
+
+                                                </div>
+                                                {momentStringFormat.length ?
+                                                    <><p className='timeText'>{moment(momentStringFormat, "YYYY-MM-DD").fromNow()}</p></> :
+                                                    <p></p>
+
+                                                }
+                                            </div>
+                                            <div className='ratingRow'>
+                                                <RatingStars />
+                                                <NoRatingStars />
+                                            </div>
+
                                         </div>
-                                        <EmojiReaction />
-                                    </div>
-                                    <div className='userDetails'>
-                                        <div>
-                                            
+
+
+                                        <div className='replyContainer'>
+                                            <p className='reviewText'>{elements.comments}</p>
+                                            <div className='replyButtonContainer'>
+                                                <Button variant="outlined" startIcon={<ReplyAllIcon />} className='replyButton'>
+                                                    Reply
+                                                </Button>
+
+                                            </div>
+
+
+
+
                                         </div>
-                                        <p className='userText'>{elements.firstName} {elements.surName}</p>
-                                        {momentStringFormat.length ?
-                                            <><span className='dot'></span><p className='userText'>{moment(momentStringFormat, "YYYY-MM-DD").fromNow()}</p></> :
-                                            <span className='dot'></span>
+                                        <div className=''>
+                                            <div className='textareaContainer'>
+                                                <img src={profile2} className='profilePic' />
+                                                <textarea className='textarea'
+                                                    placeholder='Add your response here'
+                                                    value={responseValue}
+                                                    onChange={handleChange}
+                                                />
+
+                                            </div>
+                                            <div className='responseButton'>
+                                                <Button variant="outlined" size='small' className='replyButton'>
+                                                    Cancel
+                                                </Button>
+                                                <Button variant="contained" size='small' className='replyButton'>
+                                                    submit
+                                                </Button>
+
+                                            </div>
+
+                                        </div>
+                                        {
+                                            elements.response && <>
+                                                <Divider />
+                                                <div className='responseContainer'>
+                                                    <img src={profile1} className='profilePic' />
+                                                    <div className=''>
+                                                        <div className='emojiRatingContainer'>
+
+                                                            <div>
+
+                                                                <div className='userDetails'>
+                                                                    <p className='userText'>PDD Admin</p>
+                                                                </div>
+                                                                {momentStringFormat.length ?
+                                                                    <><p className='timeText'>{moment(momentStringFormat, "YYYY-MM-DD").fromNow()}</p></> :
+                                                                    <p></p>
+
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                        <p className='reviewText'>{elements.response}</p>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </>
+
 
                                         }
 
-                                    </div>
-                                    <p className='reviewText'>{elements.comments}</p>
-                                    <div className='replyContainer'>
 
-
-                                        <Button variant="outlined" startIcon={<ReplyAllIcon />} className='replyButton'>
-                                            Reply
-                                        </Button>
-                                        {/* <div>
-                                            <input type="textarea"
-                                                name="textValue"
-                                                onChange={this.handleChange}
-                                            />
-                                        </div> */}
                                     </div>
+
                                 </div >
                             )
                         })
