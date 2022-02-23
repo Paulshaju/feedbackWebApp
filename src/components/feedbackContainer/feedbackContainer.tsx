@@ -10,6 +10,7 @@ import RatingDetails from '../ratingDetails/ratingDetails';
 import Chart from '../feedbackchart/chart';
 import ReviewComments from '../reviewComments/reviewComments';
 import { feedbackModel } from '../model/feedbackModel'
+import moment from 'moment';
 
 export default function FeedbackContainer(_props: any) {
 
@@ -18,6 +19,10 @@ export default function FeedbackContainer(_props: any) {
     let positiveFeedbackList: feedbackModel[] = []
     let negativeFeedbackList: feedbackModel[] = []
     let neutralFeedbackList: feedbackModel[] = []
+    let date = new Date()
+    date.setDate(date.getDate()-7)
+    let currentDate = moment().format("MMMM Do YY");
+    let sevenDate = moment(date).format("MMMM Do YY");
 
     feedbackList.forEach((element: feedbackModel) => {
 
@@ -86,7 +91,7 @@ export default function FeedbackContainer(_props: any) {
                     <div className='chartContainer'>
                         <div className='chartTitle'>
                             <p className='title'>Performance</p>
-                            <p className='subtitle marginBottom'>January 1 2020 - January 7 2021</p>
+                            <p className='subtitle marginBottom'>{sevenDate} - {currentDate}</p>
                         </div>
                         <div className='chartContainerBox'>
                             <Chart

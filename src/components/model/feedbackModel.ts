@@ -7,7 +7,8 @@ export interface feedbackModel{
     cogPositive:number,
     cogNeutral:number,
     cogNegative:number,
-    created:Date
+    created:Date,
+    response:string
 }
 export interface chartDataModel{
     name:string,
