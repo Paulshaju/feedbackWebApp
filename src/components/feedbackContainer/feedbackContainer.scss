@@ -1,3 +1,5 @@
+@import '../../assests/style.scss';
+
 .mainContainer{
     height: 100% !important;
     border-radius: 8px;
@@ -38,6 +40,11 @@
     flex-direction: row;
     width: 100%;
     margin-right: 10px;
+    @include breakpoint-lt-m{
+        height: auto;
+        display: flex;
+        flex-direction: column;
+    }
 }
 .marginLeftSmall{
     margin-left: 5px;
@@ -45,7 +52,15 @@
 .cardContentDetails{
     display: flex;
     flex-direction: row;
-    align-items: center
+    align-items: center;
+    @include breakpoint-lt-m{
+        margin-right: 10px;
+    }
+}
+.divider{
+    @include breakpoint-lt-m{
+        margin-right: 5px !important;
+    }
 }
 .cardIcon{
     width: 72px;
@@ -56,6 +71,13 @@
     flex-direction: row;
     width: 100%;
     justify-content: space-around;
+    @include breakpoint-lt-m{
+        height: auto;
+        display: flex;
+        width: auto;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
 }
 .cardSubtitle{
     font-size: 12px;
@@ -70,18 +92,31 @@
 }
 .ratingContainer{
     display: flex;
-   
     flex-direction: row;
+    @include breakpoint-lt-m{
+        display: flex;
+        flex-direction: column;
+    }
+
 }
 .cardContainer{
     display: flex;
     flex-direction: column;
     width: 70%;
     margin-right: 10px;
+    @include breakpoint-lt-m{
+        width: 100% !important;
+    }
+
 }
-.minWidth{
+.analysisContainer{
     width: 30%;
+    @include breakpoint-lt-m{
+        width: 100% !important;
+        margin-top: 10px;
+    }
 }
+
 .chartContainer{
     margin-top: 10px;
     box-shadow: 0px 2px 5px #0000001c !important;

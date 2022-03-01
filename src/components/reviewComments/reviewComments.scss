@@ -75,10 +75,7 @@
     font-size: 14px;
     color: #617684;
 }
-.replyButtonContainer{
-    display: flex;
-    align-items: end;
-}
+
 .textareaContainer{
     display: flex;
     flex-direction: row;
@@ -109,6 +106,7 @@
     display: flex;
     flex-direction: row;
     margin-top: 10px;
+    margin-left: 10px;
 }
 .profilePic{
     width: 32px;

@@ -1,0 +1,15 @@
+.replyButtonContainer{
+    display: flex;
+    align-items: end;
+}
+.cancelButton{
+    border: 1px solid #DEE6ED !important;
+    margin-right: 5px !important;
+    border-radius: 2px !important;
+    color: #66788B !important;
+}
+.submitButton{
+    background-color: #c30e2e !important;
+    box-shadow: none !important;
+    border-radius: 2px !important; 
+}

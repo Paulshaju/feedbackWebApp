@@ -2,11 +2,10 @@ import * as React from 'react';
 import './reviewComments.scss';
 import { ContentCut, PostAddSharp, Star } from '@mui/icons-material';
 import Button from '@mui/material/Button';
-import ReplyAllIcon from '@mui/icons-material/ReplyAll';
 import thumbsUp from '../../assests/thumbsUp.png'
 import thumbsDown from '../../assests/thumbsDown.png'
-import profile2 from '../../assests/profile2.jpg'
 import profile1 from '../../assests/profile1.jpg'
+import profile2 from '../../assests/profile2.jpg';
 import neutral from '../../assests/neutral.png'
 import { feedbackModel } from '../model/feedbackModel';
 import moment from 'moment';
@@ -16,7 +15,7 @@ import SortIcon from '@mui/icons-material/Sort';
 import { Chip, Divider, IconButton, ListItemText, Menu, MenuItem, MenuList } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
-import { arrayBuffer } from 'node:stream/consumers';
+import { ResponseTextArea } from '../responseTextArea/responseArea';
 
 
 
@@ -24,8 +23,9 @@ const ReviewComments = (_props: any) => {
     const [currentPage, setCurrentPage] = useState(1)
     const [sortText, setSortText] = useState('Sort By')
     const [postPerPage] = useState(5)
-    let editorOpened = false
-    let responseValue = ''
+    const [editorOpened,setEditorOpened] = useState(false)
+    // let editorOpened = false
+    
     let [filters, setFilters] = useState<string[]>([])
 
     const indexOfLastPost = currentPage * postPerPage
@@ -50,7 +50,7 @@ const ReviewComments = (_props: any) => {
                 }
                 setCurrentPage(1)
                 currentPosts = _props.feedbackList.filter((elem: feedbackModel) => elem.response.length !== 0)
-                handleClose()
+                FilterhandleClose()
                 break
             case 'Not Responded':
                 if (filters.indexOf('Not Responded') === -1) {
@@ -58,7 +58,7 @@ const ReviewComments = (_props: any) => {
                 }
                 setCurrentPage(1)
                 currentPosts = _props.feedbackList.filter((elem: feedbackModel) => elem.response.length === 0)
-                handleClose()
+                FilterhandleClose()
                 break
             case 'Postive Reviews':
                 if (filters.indexOf('Postive Reviews') === -1) {
@@ -66,7 +66,7 @@ const ReviewComments = (_props: any) => {
                 }
                 setCurrentPage(1)
                 currentPosts = _props.feedbackList.filter((elem: feedbackModel) => elem.response.length !== 0)
-                handleClose()
+                FilterhandleClose()
                 break
             case 'Negative Reviews':
                 if (filters.indexOf('Negative Reviews') === -1) {
@@ -74,7 +74,7 @@ const ReviewComments = (_props: any) => {
                 }
                 setCurrentPage(1)
                 currentPosts = _props.feedbackList.filter((elem: feedbackModel) => elem.response.length !== 0)
-                handleClose()
+                FilterhandleClose()
                 break
             case 'Neutral Reviews':
                 if (filters.indexOf('Neutral Reviews') === -1) {
@@ -82,7 +82,7 @@ const ReviewComments = (_props: any) => {
                 }
                 setCurrentPage(1)
                 currentPosts = _props.feedbackList.filter((elem: feedbackModel) => elem.response.length !== 0)
-                handleClose()
+                FilterhandleClose()
                 break
         }
     }
@@ -137,12 +137,7 @@ const ReviewComments = (_props: any) => {
         setFilters(filters.filter(elem => elem !== name))
     };
 
-    //textArea
-
-    const handleChange = (event: { target: { value: any; }; }) => {
-        responseValue = event.target.value
-        console.log(event.target.value)
-    }
+    
     return (
 
         <div className='reviewContainer'>
@@ -234,6 +229,7 @@ const ReviewComments = (_props: any) => {
                 {
                     currentPosts.filter(elements => elements.comments && elements.comments !== ' ')
                         .map((elements, index) => {
+                            console.log(elements.id)
                             let momentStringFormat = ''
                             if (elements.created) {
                                 let dateObj = new Date(elements.created)
@@ -312,38 +308,8 @@ const ReviewComments = (_props: any) => {
 
                                         <div className='replyContainer'>
                                             <p className='reviewText'>{elements.comments}</p>
-                                            <div className='replyButtonContainer'>
-                                                <Button variant="outlined" startIcon={<ReplyAllIcon />} className='replyButton'>
-                                                    Reply
-                                                </Button>
-
-                                            </div>
-
-
-
-
                                         </div>
-                                        <div className=''>
-                                            <div className='textareaContainer'>
-                                                <img src={profile2} className='profilePic' />
-                                                <textarea className='textarea'
-                                                    placeholder='Add your response here'
-                                                    value={responseValue}
-                                                    onChange={handleChange}
-                                                />
-
-                                            </div>
-                                            <div className='responseButton'>
-                                                <Button variant="outlined" size='small' className='replyButton'>
-                                                    Cancel
-                                                </Button>
-                                                <Button variant="contained" size='small' className='replyButton'>
-                                                    submit
-                                                </Button>
-
-                                            </div>
-
-                                        </div>
+                                        <ResponseTextArea feedback={elements}></ResponseTextArea> 
                                         {
                                             elements.response && <>
                                                 <Divider />
@@ -365,11 +331,8 @@ const ReviewComments = (_props: any) => {
                                                             </div>
                                                         </div>
                                                         <p className='reviewText'>{elements.response}</p>
-
                                                     </div>
-
                                                 </div>
-
                                             </>
 
 

@@ -25,7 +25,7 @@ export default function FeedbackContainer(_props: any) {
     let sevenDate = moment(date).format("MMMM Do YY");
 
     feedbackList.forEach((element: feedbackModel) => {
-
+        // console.log(element.id)
         if (element.created) {
             const currentDate = new Date()
             const created = new Date(element.created)
@@ -66,7 +66,7 @@ export default function FeedbackContainer(_props: any) {
                                 </div>
 
                             </div>
-                            <Divider orientation="vertical" light flexItem />
+                            <Divider className='divider' orientation="vertical" light flexItem />
                             <div className='cardContentDetails'>
                                 <img src={totalReviews} className='cardIcon' />
                                 <div className='marginLeftSmall'>
@@ -110,7 +110,7 @@ export default function FeedbackContainer(_props: any) {
                         neutralFeedbackList={neutralFeedbackList}
                     ></ReviewComments>
                 </div>
-                <div className='minWidth'>
+                <div className='analysisContainer'>
                     <div>
                         <RatingContainer
                             feedbackList={feedbackList}

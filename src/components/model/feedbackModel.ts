@@ -1,4 +1,5 @@
 export interface feedbackModel{
+    id:number
     itAccount:string,
     surName:string,
     firstName:string,
