@@ -1,4 +1,4 @@
-import { Card, CardContent, Divider } from '@mui/material';
+import { Box, Card, CardContent, Divider, IconButton, TextField } from '@mui/material';
 import * as React from 'react';
 import './feedbackContainer.scss';
 import '../../assests/style.scss'
@@ -11,6 +11,11 @@ import Chart from '../feedbackchart/chart';
 import ReviewComments from '../reviewComments/reviewComments';
 import { feedbackModel } from '../model/feedbackModel'
 import moment from 'moment';
+import DateRangeIcon from '@mui/icons-material/DateRange';
+import { DateRange, DateRangePicker } from '@mui/lab';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import { isConstructorDeclaration } from 'typescript';
 
 export default function FeedbackContainer(_props: any) {
 
@@ -20,12 +25,24 @@ export default function FeedbackContainer(_props: any) {
     let negativeFeedbackList: feedbackModel[] = []
     let neutralFeedbackList: feedbackModel[] = []
     let date = new Date()
-    date.setDate(date.getDate()-7)
-    let currentDate = moment().format("MMMM Do YY");
-    let sevenDate = moment(date).format("MMMM Do YY");
+    let start = new Date()
+    let end = new Date()
+    const [dateDifference, setDifference] = React.useState(18)
+    const [currentDate, setCurrentDate] = React.useState(moment().format("MMMM Do YY"))
+    const [startDate, setStartDate] = React.useState(moment(new Date().setDate(date.getDate() - 18)).format("MMMM Do YY"))
+    const [value, setValue] = React.useState<DateRange<Date>>([null, null]);
+    const [calenderOpen, setCalenderOpen] = React.useState(false)
+    const [response,setResponse] = React.useState(false)
 
+    const setResponseValue = (response: any) => {
+        if(response){
+            _props.setResponseValue(true)
+        }
+        
+        // setResponse(true)
+    }
+ 
     feedbackList.forEach((element: feedbackModel) => {
-        // console.log(element.id)
         if (element.created) {
             const currentDate = new Date()
             const created = new Date(element.created)
@@ -51,84 +68,117 @@ export default function FeedbackContainer(_props: any) {
 
     })
     return (
-        <div className='mainContainer fadeindownAnimation'>
-            <p className='title'>Dashboard</p>
-            <p className='subtitle'>Here you can view the feedback recieved for the PDD portal</p>
-            <div className='ratingContainer'>
-                <div className='cardContainer'>
-                    <Card className='card'>
-                        <CardContent className='cardContent'>
-                            <div className='cardContentDetails'>
-                                <img src={totalUsers} className='cardIcon' />
-                                <div className='marginLeftSmall'>
-                                    <p className='cardSubtitle'>Total Users</p>
-                                    <p className='cardTitle'>{feedbackList.length}</p>
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <div className='mainContainer fadeindownAnimation'>
+                <p className='title'>Dashboard</p>
+                <p className='subtitle'>Here you can view the feedback recieved for the PDD portal</p>
+                <div className='ratingContainer'>
+                    <div className='cardContainer'>
+                        <Card className='card'>
+                            <CardContent className='cardContent'>
+                                <div className='cardContentDetails'>
+                                    <img src={totalUsers} className='cardIcon' />
+                                    <div className='marginLeftSmall'>
+                                        <p className='cardSubtitle'>Total Users</p>
+                                        <p className='cardTitle'>{feedbackList.length}</p>
+                                    </div>
+
+                                </div>
+                                <Divider className='divider' orientation="vertical" light flexItem />
+                                <div className='cardContentDetails'>
+                                    <img src={totalReviews} className='cardIcon' />
+                                    <div className='marginLeftSmall'>
+                                        <p className='cardSubtitle'>Total Reviews</p>
+                                        <p className='cardTitle'>{feedbackList.length}</p>
+                                    </div>
+
+                                </div>
+                                <Divider orientation="vertical" light flexItem />
+                                <div className='cardContentDetails'>
+                                    <img src={newReviews} className='cardIcon' />
+                                    <div className='marginLeftSmall'>
+                                        <p className='cardSubtitle'>New Reviews</p>
+                                        <p className='cardTitle'>{newFeedbackList.length}</p>
+                                    </div>
+
                                 </div>
 
-                            </div>
-                            <Divider className='divider' orientation="vertical" light flexItem />
-                            <div className='cardContentDetails'>
-                                <img src={totalReviews} className='cardIcon' />
-                                <div className='marginLeftSmall'>
-                                    <p className='cardSubtitle'>Total Reviews</p>
-                                    <p className='cardTitle'>{feedbackList.length}</p>
-                                </div>
+
+                            </CardContent>
+                        </Card>
+                        <div className='chartContainer'>
+                            <div className='chartTitle'>
+                                <p className='title'>Performance</p>
+                                <DateRangePicker
+                                    value={value}
+                                    open={calenderOpen}
+                                    onClose={() => {
+                                        var Difference_In_Time = new Date(end).getTime() - new Date(start).getTime();
+                                        setDifference(Difference_In_Time / (1000 * 3600 * 24))
+                                        setCalenderOpen(false)
+                                    }}
+                                    onChange={(newValue) => {
+                                        start = newValue[0] as any
+                                        end = newValue[1] as any
+                                        setStartDate(moment(newValue[0]).format("MMMM Do YY"))
+                                        setCurrentDate(moment(newValue[1]).format("MMMM Do YY"))
+
+                                    }}
+                                    renderInput={(startProps, endProps) => (
+                                        <React.Fragment>
+                                            <div className='calenderPicker'>
+                                                <p className='subtitle marginBottom'>{startDate} - {currentDate}</p>
+                                                <IconButton aria-label="dateranger" onClick={(e) => setCalenderOpen(true)}>
+                                                    <DateRangeIcon fontSize='small' className='calenderIcon' />
+                                                </IconButton>
+
+                                            </div>
+
+                                        </React.Fragment>
+                                    )} />
 
                             </div>
-                            <Divider orientation="vertical" light flexItem />
-                            <div className='cardContentDetails'>
-                                <img src={newReviews} className='cardIcon' />
-                                <div className='marginLeftSmall'>
-                                    <p className='cardSubtitle'>New Reviews</p>
-                                    <p className='cardTitle'>{newFeedbackList.length}</p>
-                                </div>
-
+                            <div className='chartContainerBox'>
+                                <Chart
+                                    feedbackList={feedbackList}
+                                    positiveFeedbackList={positiveFeedbackList}
+                                    negativeFeedbackList={negativeFeedbackList}
+                                    neutralFeedbackList={neutralFeedbackList}
+                                    dateDifference={dateDifference}
+                                ></Chart>
                             </div>
 
-
-                        </CardContent>
-                    </Card>
-                    <div className='chartContainer'>
-                        <div className='chartTitle'>
-                            <p className='title'>Performance</p>
-                            <p className='subtitle marginBottom'>{sevenDate} - {currentDate}</p>
                         </div>
-                        <div className='chartContainerBox'>
-                            <Chart
+                        <ReviewComments
+                            feedbackList={feedbackList}
+                            positiveFeedbackList={positiveFeedbackList}
+                            negativeFeedbackList={negativeFeedbackList}
+                            neutralFeedbackList={neutralFeedbackList}
+                            setResponseValue={setResponseValue}
+                        ></ReviewComments>
+                    </div>
+                    <div className='analysisContainer'>
+                        <div>
+                            <RatingContainer
                                 feedbackList={feedbackList}
                                 positiveFeedbackList={positiveFeedbackList}
                                 negativeFeedbackList={negativeFeedbackList}
                                 neutralFeedbackList={neutralFeedbackList}
-                            ></Chart>
+                            ></RatingContainer>
+                            <RatingDetails
+                                feedbackList={feedbackList}
+                                positiveFeedbackList={positiveFeedbackList}
+                                negativeFeedbackList={negativeFeedbackList}
+                                neutralFeedbackList={neutralFeedbackList}
+                            ></RatingDetails>
                         </div>
+                    </div>
 
-                    </div>
-                    <ReviewComments
-                        feedbackList={feedbackList}
-                        positiveFeedbackList={positiveFeedbackList}
-                        negativeFeedbackList={negativeFeedbackList}
-                        neutralFeedbackList={neutralFeedbackList}
-                    ></ReviewComments>
-                </div>
-                <div className='analysisContainer'>
-                    <div>
-                        <RatingContainer
-                            feedbackList={feedbackList}
-                            positiveFeedbackList={positiveFeedbackList}
-                            negativeFeedbackList={negativeFeedbackList}
-                            neutralFeedbackList={neutralFeedbackList}
-                        ></RatingContainer>
-                        <RatingDetails
-                            feedbackList={feedbackList}
-                            positiveFeedbackList={positiveFeedbackList}
-                            negativeFeedbackList={negativeFeedbackList}
-                            neutralFeedbackList={neutralFeedbackList}
-                        ></RatingDetails>
-                    </div>
                 </div>
 
             </div>
 
-        </div>
+        </LocalizationProvider>
+
     );
 }

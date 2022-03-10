@@ -5,12 +5,13 @@ import ReplyAllIcon from '@mui/icons-material/ReplyAll';
 import profile2 from '../../assests/profile2.jpg';
 import './responseArea.scss';
 import axios from 'axios';
+import App from '../../App';
 
 export const ResponseTextArea = (_props: any) => {
-    console.log(_props.feedback.id)
+   
     const [editorOpened, setEditorOpened] = useState(false)
     const submitResponseUrl = 'https://prod-02.uksouth.logic.azure.com:443/workflows/7bf9f9cd37784cdb95066bfcc60a618b/triggers/request/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Frequest%2Frun&sv=1.0&sig=LxlRhuAcm1xIkBbpGRaT8OQuLlV1Gr3CV9-fneLB5Kk'
-    let [responseValue, setResponseValue] = useState('')
+    const [responseValue, setResponseValue] = useState('')
     //submitResponse
     const submitResponse = () => {
         const body = {
@@ -18,7 +19,9 @@ export const ResponseTextArea = (_props: any) => {
             "itAccount": _props.feedback.itAccount,
             "response": responseValue
         }
+        
         axios.post(submitResponseUrl, body).then((response) => {
+            _props.setElementValue(body)
             setResponseValue('')
             setEditorOpened(!editorOpened)
         })
@@ -56,7 +59,7 @@ export const ResponseTextArea = (_props: any) => {
                         </div>
                     </div>
                 </> : <div>{
-                    _props.feedback.response.length === 0 &&
+                    (_props.feedback.response.length === 0 && responseValue.length === 0) &&
                     <div className='replyButtonContainer'>
                         <Button variant="outlined" startIcon={<ReplyAllIcon />} size='small' onClick={() => {
                             setEditorOpened(!editorOpened)

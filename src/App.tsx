@@ -5,31 +5,35 @@ import NavBar from './components/navbar/navbar';
 import FeedbackContainer from './components/feedbackContainer/feedbackContainer';
 import axios from 'axios';
 import Loading from './components/loading/loading';
+import { feedbackModel } from './components/model/feedbackModel';
 
 
 function App() {
   const [feedbackList, setFeedbackList] = useState([])
   const feedbackSelectionUrl = 'https://azfa-selectionfeedback.azurewebsites.net/api/selectionFunction?'
-
+  const [reload,setReload] = useState(false)
+  const setResponseValue = (response:any) => {
+    console.log('testing')
+    setReload(true)
+  }
 
   useEffect(() => {
     getFeedback();
-  }, []);
+  }, [reload]);
 
   const getFeedback = () => {
     axios.get(feedbackSelectionUrl).then((response) => {
-      const feedbacks = response.data
+      let feedbacks = response.data
       setFeedbackList(feedbacks)
     })
       .catch(error => console.error(`Error: ${error}`))
   }
-  // console.log(feedbackList)
   return feedbackList.length == 0 ? (<div className="App">
     <Loading></Loading>
   </div>) : (
     <div className="App">
       <NavBar></NavBar>
-      <FeedbackContainer feedbackList={feedbackList}></FeedbackContainer>
+      <FeedbackContainer setResponseValue={setResponseValue} feedbackList={feedbackList}></FeedbackContainer>
     </div>
   );
 }

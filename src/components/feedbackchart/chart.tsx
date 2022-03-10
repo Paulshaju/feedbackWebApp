@@ -1,14 +1,21 @@
 import moment from 'moment';
 import * as React from 'react';
+import { useState } from 'react';
 import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { chartDataModel, feedbackModel } from '../model/feedbackModel';
 import './chart.scss'
+import DateRangePicker, { DateRange } from '@mui/lab';
 
 
 export default function Chart(_props: any) {
+
+    const selectionRange = {
+        startDate: new Date(),
+        endDate: new Date(),
+        key: 'selection',
+    }
     let chartData: chartDataModel[] = []
-    _props.feedbackList.sort((x: feedbackModel, y: feedbackModel) => +new Date(x.created) - +new Date(y.created));
-    for (let i = 6; i >= 0; i--) {
+    for (let i = _props.dateDifference; i >= 0; i--) {
 
         let date = new Date()
         date.setDate(date.getDate() - i)
@@ -50,7 +57,9 @@ export default function Chart(_props: any) {
     }
 
     return (
+
         <div className='barChart'>
+            
             <div className='barChartContainer'>
                 <ResponsiveContainer>
                     <BarChart data={chartData}

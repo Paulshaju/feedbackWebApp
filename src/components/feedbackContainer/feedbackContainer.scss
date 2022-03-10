@@ -125,10 +125,12 @@
 }
 .chartTitle{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     text-align: initial;
+    justify-content: space-between;
     padding: 10px;
     margin-left: 10px;
+    align-items: center;
 }
 .chartContainerBox{
     display: flex;
@@ -138,4 +140,12 @@
 }
 .marginBottom{
     margin-bottom: 0px !important;
+}
+.calenderPicker{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.calenderIcon{
+    color:#617684 !important;
 }
