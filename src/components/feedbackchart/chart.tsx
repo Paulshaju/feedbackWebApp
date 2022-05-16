@@ -5,9 +5,11 @@ import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAx
 import { chartDataModel, feedbackModel } from '../model/feedbackModel';
 import './chart.scss'
 import DateRangePicker, { DateRange } from '@mui/lab';
+import { ResponsiveAreaBump } from '@nivo/bump'
 
 
 export default function Chart(_props: any) {
+    
 
     const selectionRange = {
         startDate: new Date(),
@@ -59,7 +61,7 @@ export default function Chart(_props: any) {
     return (
 
         <div className='barChart'>
-            
+
             <div className='barChartContainer'>
                 <ResponsiveContainer>
                     <BarChart data={chartData}
@@ -75,6 +77,7 @@ export default function Chart(_props: any) {
                     </BarChart>
 
                 </ResponsiveContainer>
+                
 
             </div>
 

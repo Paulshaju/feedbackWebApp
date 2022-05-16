@@ -4,8 +4,8 @@ import { ConstructionOutlined, ContentCut, PostAddSharp, Star } from '@mui/icons
 import Button from '@mui/material/Button';
 import thumbsUp from '../../assests/thumbsUp.png'
 import thumbsDown from '../../assests/thumbsDown.png'
-import profile1 from '../../assests/profile1.jpg'
-import profile2 from '../../assests/profile2.jpg';
+import profile1 from '../../assests/admin.svg'
+import profilePic from '../../../src/assests/profilePic.svg';
 import neutral from '../../assests/neutral.png'
 import { feedbackModel } from '../model/feedbackModel';
 import Tooltip from '@mui/material/Tooltip';
@@ -15,9 +15,9 @@ import { Pagination } from '../pagination/pagination';
 import SortIcon from '@mui/icons-material/Sort';
 import { Chip, Divider, IconButton, ListItemText, Menu, MenuItem, MenuList } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import { ResponseTextArea } from '../responseTextArea/responseArea';
-import { isConstructorDeclaration } from 'typescript';
+import RefreshIcon from '@mui/icons-material/Refresh';
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
 
 
 
@@ -33,15 +33,23 @@ const ReviewComments = (_props: any) => {
     let currentpageNumber = 1
     let indexOfLastPost = currentpageNumber * postPerPage
     let indexOfFirstPost = indexOfLastPost - postPerPage
-    const [response, setResponse] = useState(false);
+    let reload = false
 
     const setElementValue = (body: any) => {
-        let element = _props.feedbackList.find((element: { id: any; }) => element.id == body.id)
-        _props.setResponseValue(true)
-        var index = _props.feedbackList.indexOf(element)
-        _props.feedbackList[index].response = body.response
+        reload = !reload
+        console.log(reload)
+        _props.setResponseValue(reload)
+
     }
-    const [currentPosts,setCurrentPosts] = useState(totalPosts.slice(indexOfFirstPost, indexOfLastPost))
+    React.useEffect(() => {
+        currentpageNumber = 1
+        setCurrentPage(1)
+        indexOfLastPost = currentpageNumber * postPerPage
+        indexOfFirstPost = indexOfLastPost - postPerPage
+        totalPosts = _props.feedbackList
+        setCurrentPosts(totalPosts.slice(indexOfFirstPost, indexOfLastPost))
+    }, [_props.feedbackList])
+    const [currentPosts, setCurrentPosts] = useState(totalPosts.slice(indexOfFirstPost, indexOfLastPost))
     const paginate = (pagenumber: number) => {
         setCurrentPage(pagenumber)
         currentpageNumber = pagenumber
@@ -67,10 +75,10 @@ const ReviewComments = (_props: any) => {
                 }
                 paginate(1)
                 setCurrentPosts(totalPosts.filter((elem: feedbackModel) => elem.response.length !== 0))
-                let filteredPost:feedbackModel[] = []
+                let filteredPost: feedbackModel[] = []
                 totalPosts.filter((elem: feedbackModel) => elem.response.length !== 0).forEach((_element: feedbackModel) => {
 
-                    
+
                 });
 
                 console.log(totalPosts.filter((elem: feedbackModel) => elem.response.length !== 0))
@@ -120,14 +128,14 @@ const ReviewComments = (_props: any) => {
                 break
             case 'newest':
                 setSortText('Latest')
-                
+
                 setCurrentPosts(totalPosts.sort((x: feedbackModel, y: feedbackModel) => Date.parse(new Date(y.created).toString()) - Date.parse(new Date(x.created).toString())))
                 paginate(1)
                 handleClose()
                 break
             case 'most votes':
                 setSortText('most votes')
-                
+
                 setCurrentPosts(totalPosts.sort((x: feedbackModel, y: feedbackModel) => +y.score - +x.score))
                 paginate(1)
                 handleClose()
@@ -175,15 +183,16 @@ const ReviewComments = (_props: any) => {
     };
 
 
+
     return (
 
         <div className='reviewContainer'>
             <div className='titleContainer'>
                 <p className='title'>Reviews</p>
                 <div>
-                    {/* <IconButton aria-label="filter" onClick={FIlterHandleClick} className='sortIcon'>
+                    <IconButton aria-label="filter" onClick={FIlterHandleClick} className='sortIcon'>
                         <FilterAltIcon fontSize='small' />
-                    </IconButton> */}
+                    </IconButton>
                     <Menu
                         id="filter-menu"
                         anchorEl={filterAnchorEl}
@@ -240,6 +249,10 @@ const ReviewComments = (_props: any) => {
                         </MenuList>
 
                     </Menu>
+                    <IconButton aria-label="filter" onClick={setElementValue} className='sortIcon'>
+                        <RefreshIcon fontSize='small' />
+                    </IconButton>
+
 
                 </div>
 
@@ -327,7 +340,7 @@ const ReviewComments = (_props: any) => {
                             }
                             return (
                                 <div className='reviewTextContainer' key={index} >
-                                    <img src={profile2} className='profilePic' />
+                                    <img src={profilePic} className='profilePic' />
                                     <div className='commentContainer'>
                                         <div className='emojiRatingContainer'>
 
@@ -354,6 +367,29 @@ const ReviewComments = (_props: any) => {
 
                                         <div className='replyContainer'>
                                             <p className='reviewText'>{elements.comments}</p>
+                                        </div>
+                                        <div className='phrasesContainer'>
+                                            <p className='cardSubtitle'>Key Phrases:</p>
+                                            {
+                                                elements.keyPhrases.map((elem: string, index: any) => {
+                                                   
+                                                    if (elem.length !== 0) {
+                                                        return (
+                                                            <Chip key={index} className='keyPhrasesChips'
+                                                                label={elem}
+                                                                size='small'
+                                                                
+                                                            />
+
+                                                        )
+
+                                                    }
+
+
+                                                })
+
+                                            }
+
                                         </div>
                                         <ResponseTextArea setElementValue={setElementValue} feedback={elements}></ResponseTextArea>
                                         {

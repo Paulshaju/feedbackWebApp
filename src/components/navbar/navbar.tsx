@@ -14,15 +14,7 @@ export default function NavBar() {
             <AppBar position="static">
                 <Toolbar className='navBar'>
                     <div className='logoContainer'>
-                        <IconButton
-                            size="large"
-                            edge="start"
-                            color="inherit"
-                            aria-label="menu"
-                            sx={{ mr: 2 }}
-                        >
-                            <MenuIcon className='menuButton' />
-                        </IconButton>
+                        
                         <img src={uniLogo} className='logoPic' />
                     </div>
 

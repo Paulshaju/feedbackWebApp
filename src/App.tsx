@@ -13,8 +13,8 @@ function App() {
   const feedbackSelectionUrl = 'https://azfa-selectionfeedback.azurewebsites.net/api/selectionFunction?'
   const [reload,setReload] = useState(false)
   const setResponseValue = (response:any) => {
-    console.log('testing')
-    setReload(true)
+    console.log(response)
+    setReload(response)
   }
 
   useEffect(() => {

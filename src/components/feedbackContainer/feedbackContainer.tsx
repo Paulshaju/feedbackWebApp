@@ -15,7 +15,7 @@ import DateRangeIcon from '@mui/icons-material/DateRange';
 import { DateRange, DateRangePicker } from '@mui/lab';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import { isConstructorDeclaration } from 'typescript';
+
 
 export default function FeedbackContainer(_props: any) {
 
@@ -35,10 +35,7 @@ export default function FeedbackContainer(_props: any) {
     const [response,setResponse] = React.useState(false)
 
     const setResponseValue = (response: any) => {
-        if(response){
-            _props.setResponseValue(true)
-        }
-        
+        _props.setResponseValue(response)
         // setResponse(true)
     }
  

@@ -10,6 +10,10 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 
 export default function RatingContainer(_props: any) {
 
+    let calculatePercentagePositive = () => {
+        
+    }
+
 
     let PerformanceReview = () => {
         if (_props.positiveFeedbackList.length >= _props.negativeFeedbackList.length) {
