@@ -13,8 +13,7 @@ function App() {
   const feedbackSelectionUrl = 'https://azfa-selectionfeedback.azurewebsites.net/api/selectionFunction?'
   const [reload,setReload] = useState(false)
   const setResponseValue = (response:any) => {
-    console.log(response)
-    setReload(response)
+    setReload(!reload)
   }
 
   useEffect(() => {
@@ -22,6 +21,7 @@ function App() {
   }, [reload]);
 
   const getFeedback = () => {
+    setReload(reload)
     axios.get(feedbackSelectionUrl).then((response) => {
       let feedbacks = response.data
       setFeedbackList(feedbacks)

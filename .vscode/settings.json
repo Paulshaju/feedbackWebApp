@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/a6530401-1eb3-4ddc-83f8-da51b0809751/resourceGroups/azrg-DevTeamSandpitDV/providers/Microsoft.Web/sites/appfeedback",
+    "appService.deploySubpath": "build"
+}

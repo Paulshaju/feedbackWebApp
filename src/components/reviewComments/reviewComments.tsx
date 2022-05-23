@@ -33,11 +33,10 @@ const ReviewComments = (_props: any) => {
     let currentpageNumber = 1
     let indexOfLastPost = currentpageNumber * postPerPage
     let indexOfFirstPost = indexOfLastPost - postPerPage
-    let reload = false
+    let reload = true
 
     const setElementValue = (body: any) => {
         reload = !reload
-        console.log(reload)
         _props.setResponseValue(reload)
 
     }
@@ -80,8 +79,6 @@ const ReviewComments = (_props: any) => {
 
 
                 });
-
-                console.log(totalPosts.filter((elem: feedbackModel) => elem.response.length !== 0))
                 FilterhandleClose()
                 break
             case 'Not Responded':
